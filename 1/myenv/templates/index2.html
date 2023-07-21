@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">CRUD App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/templates/create.html">Crear</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/templates/update.html">Actualizar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>Create Document</h2>
+        <form action="/create" method="POST">
+            <div class="mb-3">
+                <input type="text" name="ID" class="form-control" placeholder="ID" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Time_GMT" class="form-control" placeholder="Time_GMT" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Organization" class="form-control" placeholder="Organization" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Rating" class="form-control" placeholder="Rating" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Country" class="form-control" placeholder="Country" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="City" class="form-control" placeholder="City" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Building" class="form-control" placeholder="Building" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Day" class="form-control" placeholder="Day" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Month" class="form-control" placeholder="Month" required>
+            </div>
+            <div class="mb-3">
+                <input type="text" name="Year" class="form-control" placeholder="Year" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+
+        <h2>Documents</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>_id</th>
+                    <th>ID</th>
+                    <th>Time_GMT</th>
+                    <th>Organization</th>
+                    <th>Rating</th>
+                    <th>Country</th>
+                    <th>City</th>
+                    <th>Building</th>
+                    <th>Day</th>
+                    <th>Month</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                <tr>
+                    <td>{{ document._id }}</td>
+                    <td>{{ document.ID }}</td>
+                    <td>{{ document.Time_GMT }}</td>
+                    <td>{{ document.Organization }}</td>
+                    <td>{{ document.Rating }}</td>
+                    <td>{{ document.Country }}</td>
+                    <td>{{ document.City }}</td>
+                    <td>{{ document.Building }}</td>
+                    <td>{{ document.Day }}</td>
+                    <td>{{ document.Month }}</td>
+                    <td>{{ document.Year }}</td>
+                    <td>
+                        <form action="/update/{{ document._id }}" method="POST" style="display: inline;">
+                            <div class="mb-3">
+                                <input type="text" name="ID" class="form-control" value="{{ document.ID }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Time_GMT" class="form-control" value="{{ document.Time_GMT }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Organization" class="form-control" value="{{ document.Organization }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Rating" class="form-control" value="{{ document.Rating }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Country" class="form-control" value="{{ document.Country }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="City" class="form-control" value="{{ document.City }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Building" class="form-control" value="{{ document.Building }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Day" class="form-control" value="{{ document.Day }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Month" class="form-control" value="{{ document.Month }}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="text" name="Year" class="form-control" value="{{ document.Year }}" required>
+                            </div>
+                            
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                        
+                        <form action="/delete/{{ document._id }}" method="POST" style="display: inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination justify-content-center">
+            {% if page > 1 %}
+                <a class="btn btn-primary mr-2" href="?page={{ page - 1 }}">Anterior</a>
+            {% endif %}
+            
+            {% if total_documents > (page * DOCUMENTS_PER_PAGE) %}
+                <a class="btn btn-primary" href="?page={{ page + 1 }}">Siguiente</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

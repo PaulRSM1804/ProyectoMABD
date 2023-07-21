@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<h2>Create Document</h2>
+        <form action="/update/{{ document._id }}" method="POST" style="display: inline;">
+            <div class="mb-3">
+                <input type="number" name="ID" class="form-control" value="{{ document.ID }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Time_GMT" class="form-control" value="{{ document.Time_GMT }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Organization" class="form-control" value="{{ document.Organization }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="number" name="Rating" class="form-control" value="{{ document.Rating }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Country" class="form-control" value="{{ document.Country }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="City" class="form-control" value="{{ document.City }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="number" name="Building" class="form-control" value="{{ document.Building }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Day" class="form-control" value="{{ document.Day }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Month" class="form-control" value="{{ document.Month }}" required>
+            </div>
+
+            <div class="mb-3">
+                <input type="text" name="Year" class="form-control" value="{{ document.Year }}" required>
+            </div>
+            
+            <input type="hidden" name="_method" value="PUT">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

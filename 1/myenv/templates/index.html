@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .edit-input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .edit-input:disabled {
+            background-color: #f9f9f9;
+        }
+        
+        .btn-save {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-delete {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-create {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .btn-save:hover, .btn-delete:hover, .btn-create:hover {
+            opacity: 0.8;
+        }
+        
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .pagination a {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">CRUD App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('create') }}">Crear</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <h1>Documentos</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>value</th>
+            <th>wm_yr_wk</th>
+            <th>wday</th>
+            <th>month</th>
+            <th>year</th>
+            <th>snap_CA</th>
+            <th>snap_TX</th>
+            <th>sell_price</th>
+            <th>dept_id</th>
+            <th>week</th>
+            <th>day</th>
+            <th>Acciones</th>
+        </tr>
+        {% for document in documents %}
+            <tr>
+                <form action="{{ url_for('update', id=document._id) }}" method="post">
+                    <td><input class="edit-input" type="text" name="_id" value="{{ document._id }}" disabled></td>
+                    <td><input class="edit-input" type="text" name="value" value="{{ document.value }}"></td>
+                    <td><input class="edit-input" type="text" name="wm_yr_wk" value="{{ document.wm_yr_wk }}"></td>
+                    <td><input class="edit-input" type="text" name="wday" value="{{ document.wday }}"></td>
+                    <td><input class="edit-input" type="text" name="month" value="{{ document.month }}"></td>
+                    <td><input class="edit-input" type="text" name="year" value="{{ document.year }}"></td>
+                    <td><input class="edit-input" type="text" name="snap_CA" value="{{ document.snap_CA }}"></td>
+                    <td><input class="edit-input" type="text" name="snap_TX" value="{{ document.snap_TX }}"></td>
+                    <td><input class="edit-input" type="text" name="sell_price" value="{{ document.sell_price }}"></td>
+                    <td><input class="edit-input" type="text" name="dept_id" value="{{ document.dept_id }}"></td>
+                    <td><input class="edit-input" type="text" name="week" value="{{ document.week }}"></td>
+                    <td><input class="edit-input" type="text" name="day" value="{{ document.day }}"></td>
+                    <td>
+                        <button class="btn-save" type="submit">Guardar</button>
+                        <form action="{{ url_for('delete', id=document._id) }}" method="post">
+                            <button class="btn-delete" type="submit">Eliminar</button>
+                        </form>
+                    </td>
+                    <input type="hidden" name="_method" value="POST">
+                </form>
+            </tr>
+        {% endfor %}
+
+    </table>
+    <div class="pagination justify-content-center">
+        {% if page > 1 %}
+            <a class="btn btn-primary mr-2" href="?page={{ page - 1 }}">Anterior</a>
+        {% endif %}
+        
+        {% if total_documents > (page * DOCUMENTS_PER_PAGE) %}
+            <a class="btn btn-primary" href="?page={{ page + 1 }}">Siguiente</a>
+        {% endif %}
+    </div>
+    <form action="{{ url_for('execute_etl') }}" method="GET">
+        <button type="submit" class="btn btn-primary">ETL</button>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

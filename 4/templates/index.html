@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App de muestra</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+
+        .larger-cell {
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Datos de MongoDB</h1>
+
+        <form action="/search" method="get">
+            <input  type="text" name="query" placeholder="Buscar por object id" required>
+            <button  type="submit">Buscar</button>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="larger-cell">_id</th>
+                        <th>wm_yr_wk</th>
+                        <th>wday</th>
+                        <th>mes</th>
+                        <th>anio</th>
+                        <th>snap_CA</th>
+                        <th>snap_TX</th>
+                        <th>sell_price</th>
+                        <th>dept_id</th>
+                        <th>week</th>
+                        <th>dia</th>
+                        <th>pca_component_1</th>
+                        <th>pca_component_2</th>
+                        <th>pca_component_3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document in documents %}
+                    <tr>
+                        <td class="larger-cell">{{ document._id }}</td>
+                        <td>{{ document.wm_yr_wk }}</td>
+                        <td>{{ document.wday }}</td>
+                        <td>{{ document.mes }}</td>
+                        <td>{{ document.anio }}</td>
+                        <td>{{ document.snap_CA }}</td>
+                        <td>{{ document.snap_TX }}</td>
+                        <td>{{ document.sell_price }}</td>
+                        <td>{{ document.dept_id }}</td>
+                        <td>{{ document.week }}</td>
+                        <td>{{ document.dia }}</td>
+                        <td>{{ document.pca_component_1 }}</td>
+                        <td>{{ document.pca_component_2 }}</td>
+                        <td>{{ document.pca_component_3 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination justify-content-center">
+            {% if page > 1 %}
+                <a class="btn btn-primary mr-2" href="?page={{ page - 1 }}">Anterior</a>
+            {% endif %}
+            
+            {% if total_documents > (page * DOCUMENTS_PER_PAGE) %}
+                <a class="btn btn-primary" href="?page={{ page + 1 }}">Siguiente</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

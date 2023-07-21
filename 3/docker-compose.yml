@@ -1,0 +1,61 @@
+version: '3'
+services:
+  postgres1:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5440:5432
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/pgdata1:/var/lib/postgresql/data
+
+  postgres2:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5441:5432
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/pgdata2:/var/lib/postgresql/data
+
+  postgres3:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5442:5432
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/pgdata3:/var/lib/postgresql/data
+
+  modata1:
+    image: mongo
+    ports:
+      - 27050:27017
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/modata1:/data/db
+
+  modata2:
+    image: mongo
+    ports:
+      - 27051:27017
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/modata2:/data/db
+
+  modata3:
+    image: mongo
+    ports:
+      - 27052:27017
+    cpus: '0.5'
+    mem_limit: 100m
+    volumes:
+      - ./Dockers/modata3:/data/db

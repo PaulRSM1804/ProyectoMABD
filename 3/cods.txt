@@ -1,0 +1,14 @@
+docker run -it --network host postgres psql -h 127.0.0.1 -p 5440 -U postgres
+docker run -it --network host postgres psql -h 127.0.0.1 -p 5441 -U postgres
+docker run -it --network host postgres psql -h 127.0.0.1 -p 5442 -U postgres
+CREATE DATABASE data;
+\c data
+\dt
+\d Dataframe
+select * from Dataframe;
+
+MONGO
+http://localhost:3000/data2?page=1&limit=10
+
+POSTGRES
+http://localhost:4000/data2?page=1&limit=10
