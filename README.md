@@ -10,7 +10,6 @@ El siguiente proyecto consiste en la siguiente implementacion:
 6. APLICACION READ ONLY
 ## Autores
 
-- [@Jarrin Danilo](https://github.com/DaniloJarrin/Proyecto2P_DJarrin_PSalazar_SSalazar)
 - [@Salazar Sebastian](https://github.com/SebasSalazar?tab=repositories)
 - [@Salazar Paul](https://github.com/PaulRSM1804?tab=repositories)
 
